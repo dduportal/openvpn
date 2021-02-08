@@ -30,12 +30,12 @@ services:
     image: jenkinsciinfra/ldap@sha256:728c513954ee58c7cfe79fd5c620dd028e6278c7460a2ede37b10bb650d0f2c1
     environment:
         - "OPENLDAP_DEBUG_LEVEL=1"
-        - "OPENLDAP_SSL_CA_ROOTDIR=/etc/ldap/ssl-ca/"
+        - "OPENLDAP_SSL_CA_ROOTDIR=/etc/ldap/ssl"
         - "OPENLDAP_SSL_CRT=cert.pem"
     volumes:
         - ldap_data:/var/lib/ldap
         - ./mock/ldap/ca.crt:/usr/local/share/ca-certificates/ca.crt:ro
-        - ./mock/ldap/ca.crt:/etc/ldap/ssl/cacert.pem:ro
+        - ./mock/ldap/ca.crt:/etc/ldap/ssl/ca.crt:ro # Override the Let's Encrypt CA embeded in the image
         - ./mock/ldap/ldap.crt:/etc/ldap/ssl/cert.pem:ro
         - ./mock/ldap/ldap.key:/etc/ldap/ssl/privkey.key:ro
         - ./mock/mock.ldif:/var/backups/backup.latest.ldif:ro
