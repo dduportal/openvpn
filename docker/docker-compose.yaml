@@ -27,7 +27,7 @@ services:
 
   # Don't forget to run /entrypoint/restore, once database is started
   ldap:
-    image: jenkinsciinfra/ldap@sha256:728c513954ee58c7cfe79fd5c620dd028e6278c7460a2ede37b10bb650d0f2c1
+    image: jenkinsciinfra/ldap@sha256:bee8e769077e82984ada23d25b06c7f42130a4b9f9fa92ead20916e01c1af8de
     environment:
         - "OPENLDAP_DEBUG_LEVEL=1"
     volumes:
