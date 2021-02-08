@@ -8,3 +8,4 @@ utils/easyvpn/easyvpn.exe
 /easyvpn.exe
 !docker/mock/**
 *.swp
+.DS_Store

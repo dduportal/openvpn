@@ -15,13 +15,14 @@ services:
         - "AUTH_LDAP_BINDDN=cn=admin,dc=jenkins-ci,dc=org"
         - "AUTH_LDAP_GROUPS_MEMBER=cn=all"
     volumes:
-        - ./mock/vpn/ccd:/etc/openvpn/server/ccd
-        - ./mock/vpn/ca.crt:/etc/openvpn/server/ca.crt
-        - ./mock/vpn/ldapca.crt:/etc/ldap/ssl/cacert.crt
-        - ./mock/vpn/vpn.crt:/etc/openvpn/server/server.crt
-        - ./mock/vpn/dh.pem:/etc/openvpn/server/dh.pem
-        - ./mock/vpn/vpn.key:/etc/openvpn/server/server.key
-        - ./mock/vpn/ca.crt:/etc/ssl/certs/ca-certificates.crt
+        - ./mock/vpn/ccd:/etc/openvpn/server/ccd:ro
+        - ./mock/vpn/ca.crt:/etc/openvpn/server/ca.crt:ro
+        - ./mock/vpn/ldapca.crt:/etc/ldap/ssl/cacert.crt:ro
+        - ./mock/vpn/vpn.crt:/etc/openvpn/server/server.crt:ro
+        - ./mock/vpn/dh.pem:/etc/openvpn/server/dh.pem:ro
+        - ./mock/vpn/vpn.key:/etc/openvpn/server/server.key:ro
+        - ./mock/vpn/ca.crt:/usr/local/share/ca-certificates/ca.crt:ro
+        - ./mock/clients:/root/openvpn-client:ro
     ports:
         - 443:443
 
