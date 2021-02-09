@@ -2,16 +2,31 @@
 
 set -eux -o pipefail
 
-CURRENT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
-
 ## Generate certificates in current dir
 
-command -v >/dev/null || (
-    echo "ERROR: mkcert is required"
-    exit 1
-)
+## Generate LDAP Certificate + Key
+openssl req \
+  -newkey rsa:2048 \
+  -nodes \
+  -keyout ./ldap.key \
+  -out ./ldap.csr\
+  -subj "/C=BE/O=JENKINSPROJECT/CN=ldap"
 
-mkcert -key-file "${CURRENT_DIR}/ldap.key" -cert-file "${CURRENT_DIR}/ldap.crt" \
-  ldap.jenkins.io localhost jenkins 172.17.0.1 127.0.0.1 vpn.jenkins.io
+# Generate Certificate Authority Certificate + Key
+openssl req \
+  -newkey rsa:2048 \
+  -nodes \
+  -keyout ./ca.key \
+  -x509 \
+  -days 365 \
+  -out ./ca.crt\
+  -subj "/C=BE/O=JENKINSPROJECT/CN=ldap"
 
-cp "$(mkcert -CAROOT)/rootCA.pem" "${CURRENT_DIR}/ca.crt"
+## Sign LDAP Certificate with Certificate Authority
+openssl x509 -req \
+  -in ./ldap.csr \
+  -CA ./ca.crt \
+  -CAkey ./ca.key \
+  -CAcreateserial \
+  -CAserial ./ca.srl \
+  -out ./ldap.crt

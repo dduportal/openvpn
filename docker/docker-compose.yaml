@@ -17,7 +17,7 @@ services:
     volumes:
         - ./mock/vpn/ccd:/etc/openvpn/server/ccd:ro
         - ./mock/vpn/ca.crt:/etc/openvpn/server/ca.crt:ro
-        - ./mock/vpn/ldapca.crt:/etc/ldap/ssl/cacert.crt:ro
+        - ./mock/ldap/ca.crt:/etc/ldap/ssl/cacert.crt:ro
         - ./mock/vpn/vpn.crt:/etc/openvpn/server/server.crt:ro
         - ./mock/vpn/dh.pem:/etc/openvpn/server/dh.pem:ro
         - ./mock/vpn/vpn.key:/etc/openvpn/server/server.key:ro
